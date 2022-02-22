@@ -2,6 +2,6 @@
 
 class Cell;
 
-class Grid{};
+class Grid{
 
-class Cell{};
+};
