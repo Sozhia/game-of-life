@@ -16,6 +16,8 @@ class Cell{
    ostream& operator<<(ostream&, const Cell&);
 
  private:
+  int posx_, posy_;
+  State state_;
 };
 
 #endif
