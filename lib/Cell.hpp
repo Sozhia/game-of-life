@@ -4,23 +4,25 @@
 #include <iostream>
 
 using namespace std;
+typedef int State;
 
 class Grid;
 
 class Cell{
  public:
    Cell();
-   Cell(posx, posy, state);
+   Cell(int, int, State);
    State getState() const;
    State setState(State);
    void updateState();
    int neighbors(const Grid&);
    ostream& operator<<(ostream&, const Cell&);
    ~Cell();
-   
+
  private:
-  int posx_, posy_;
+  int posx_, posy_, neighbors_;
   State state_;
+
 };
 
 #endif
