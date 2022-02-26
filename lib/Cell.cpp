@@ -2,6 +2,7 @@
 #define _CELLCPP_
 #include "Cell.hpp"
 #include "Grid.hpp"
+#include "State.cpp"
 
 State Cell::getState() const{}
 State Cell::setState(State){}
