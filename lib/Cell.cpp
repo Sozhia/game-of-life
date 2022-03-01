@@ -5,11 +5,8 @@
 
 using namespace std;
 
-Cell::Cell() {}
-
-Cell::Cell(int posx, int posy) {
-  posx_ = posx;
-  posy_ = posy;
+Cell::Cell() {
+  state_ = 0;
 }
 
 State Cell::getState() const { return state_; }
