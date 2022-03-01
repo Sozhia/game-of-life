@@ -12,8 +12,6 @@ class Grid{
   Grid(int, int);
   const Cell& getCell(int, int) const;
   void nextGeneration();
-  int getHeight() const;
-  int getWidth() const;
 
  private:
   std::vector<std::vector<Cell>> board_;
