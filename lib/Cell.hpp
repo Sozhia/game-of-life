@@ -11,7 +11,7 @@ class Grid;
 class Cell{
  public:
    Cell();
-   Cell(int, int, State);
+   Cell(int, int);
    State getState() const;
    State setState(State);
    void updateState();
@@ -22,7 +22,6 @@ class Cell{
  private:
   int posx_, posy_, neighbors_;
   State state_;
-
 };
 
 #endif
