@@ -11,7 +11,6 @@ class Grid;
 class Cell{
  public:
    Cell();
-   Cell(int, int);
    State getState() const;
    State setState(State);
    void updateState();
