@@ -15,6 +15,7 @@ class Grid{
 
  private:
   std::vector<std::vector<Cell>> board_;
+  unsigned int turn_;
 };
 
 #endif
