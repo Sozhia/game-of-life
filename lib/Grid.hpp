@@ -15,6 +15,7 @@ class Grid{
 
   void browseNeighbors();
   void quarterStates();
+  void printGrid();
 
  private:
   std::vector<std::vector<Cell>> board_;
