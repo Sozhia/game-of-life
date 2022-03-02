@@ -32,7 +32,7 @@ int Cell::neighbors(const Grid& grid) {
 }
 
 ostream& Cell::operator<<(ostream& os, const Cell& cl){
-  (cl.getState() == 0)? os <<  ' ': os << 'X';
+  (cl.getState() == 0)? os <<  " ": os << "X";
   return os;
 }
 
