@@ -4,6 +4,7 @@
 #include "Grid.hpp"
 
 Grid::Grid(){}
+
 Grid::Grid(int width, int height){
   turn_ = 0;
   board_.resize(width+2);
@@ -21,7 +22,7 @@ const Cell& Grid::getCell(int i, int j) const {return board_[i][j];}
 void Grid::nextGeneration(){
   browseNeighbors();
   quarterStates();
-  cout << turn_;
+  cout << getTurn();
   printGrid();
   turn_++;
 }
@@ -49,5 +50,7 @@ void Grid::printGrid(){
     }
   }
 }
+
+unsigned int Grid::getTurn() {return turn_;}
 
 #endif
