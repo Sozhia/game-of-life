@@ -53,4 +53,7 @@ void Grid::printGrid(){
 
 unsigned int Grid::getTurn() {return turn_;}
 
+Cell& Grid::cellAcces(int i, int j){
+  return board_[i][j];
+}
 #endif

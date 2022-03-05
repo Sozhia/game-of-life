@@ -10,7 +10,7 @@ void gameStart(int, int);
 int askWidth();
 int askHeight();
 
-int main (int argc, char** argv) {
+int main(int argc, char** argv) {
   if (argc == 2 && strcmp(argv[1], "--help")==0) {
 		printHelp();
 		exit(1);

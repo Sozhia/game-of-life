@@ -15,7 +15,7 @@ class Cell{
    State setState(State);
    void updateState();
    int neighbors(const Grid&);
-   ostream& operator<<(ostream&, const Cell&);
+   friend ostream& operator<<(ostream&, const Cell&);
    ~Cell();
 
  private:

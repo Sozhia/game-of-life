@@ -5,9 +5,7 @@
 
 using namespace std;
 
-Cell::Cell() {
-  state_ = 0;
-}
+Cell::Cell() { state_ = 0; }
 
 State Cell::getState() const { return state_; }
 
@@ -29,11 +27,16 @@ int Cell::neighbors(const Grid& grid) {
       grid.getCell(i,j).getState() == 1? neighbors_++ : 0;
     }
   }
+  return 0;
 }
 
-ostream& Cell::operator<<(ostream& os, const Cell& cl){
-  (cl.getState() == 0)? os <<  " ": os << "X";
+Cell::~Cell(){}
+
+
+ostream& operator<<(ostream& os,const Cell& cl){
+  (cl.getState() == 0)? os <<  " " : os << "X";
   return os;
 }
+
 
 #endif
