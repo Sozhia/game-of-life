@@ -12,9 +12,11 @@ class Cell{
  public:
    Cell();
    State getState() const;
-   State setState(State);
+   void setState(State);
+   void setPosx(int);
+   void setPosY(int);
    void updateState();
-   int neighbors(const Grid&);
+   void neighbors(const Grid&);
    friend ostream& operator<<(ostream&, const Cell&);
    ~Cell();
 

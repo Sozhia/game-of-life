@@ -16,11 +16,9 @@ class Grid{
   void browseNeighbors();
   void quarterStates();
   void printGrid();
-  unsigned int getTurn();
 
  private:
   std::vector<std::vector<Cell>> board_;
-  unsigned int turn_;
 };
 
 #endif

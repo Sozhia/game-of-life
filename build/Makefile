@@ -10,4 +10,6 @@ game-of-life: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS) 
 
 clean:
-		rm -rf *o game-of-life
+		rm -rf *o ./game-of-life
+		rm -rf *o ../lib/*.o
+		rm -rf *o ../*.o

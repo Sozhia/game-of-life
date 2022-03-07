@@ -1,14 +1,17 @@
 #include "./lib/Grid.hpp"
 #include "./lib/Cell.hpp"
+
 #include <string.h>
 #include <stdio.h>
 
 void printHelp();
 void gameParameters();
-void gameStart(int, int);
+void gameStart(int rows, int columns, int shifts);
 
-int askWidth();
-int askHeight();
+int askRows();
+int askColumns();
+int askShifts();
+void askAliveCells(Grid& grid);
 
 int main(int argc, char** argv) {
   if (argc == 2 && strcmp(argv[1], "--help")==0) {
@@ -24,65 +27,71 @@ int main(int argc, char** argv) {
   return 0;
 }
 
+
+void gameParameters() {
+  int rows, columns, shifts;
+  std::cout << "\t Please enter the grid size (NxM) and shifts manually, otherwise press Ctrl + C to exit."<< std::endl;
+  columns = askColumns();
+  rows = askRows();
+  shifts = askShifts();
+  gameStart(rows, columns, shifts);
+}
+
+int askRows() {
+  int aux;
+  std::cout << "\t Please enter the number of Rows (M), otherwise press Ctrl + C to exit."<< std::endl;
+  cin >> aux;
+  return aux;
+}
+
+int askColumns() {
+  int aux;
+  std::cout << "\t Please enter the number of Columns (N), otherwise press Ctrl + C to exit."<< std::endl;
+  cin >> aux;
+  return aux;
+}
+
+int askShifts() {
+  int aux;
+  std::cout << "\t Please enter the number of Shifts, otherwise press Ctrl + C to exit."<< std::endl;
+  cin >> aux;
+  return aux;
+}
+
+void gameStart(int rows, int columns, int shifts) {
+  Grid grid(columns,rows);
+  askAliveCells(grid);
+
+  for (unsigned int counter = 0; counter < shifts; counter ++) {
+    std::cout << "Shift: " << counter << std::endl;
+    grid.nextGeneration();
+    std::cout << "\t Press Enter key to continue . . . "<< std::endl;
+    getchar();
+  }
+  
+}
+
+void askAliveCells(Grid& grid) {
+  int aux;
+  std::cout << "\t Please enter the number of alive cells, otherwise press Ctrl + C to exit."<< std::endl;
+  cin >> aux;
+  for (int i = 0; i < aux; i++) {
+    int posx, posy;
+    std::cout << "\t Please enter the X coordinate of alive cell, otherwise press Ctrl + C to exit."<< std::endl;
+    cin >> posx;
+    std::cout << "\t Please enter the Y coordinate of alive cell, otherwise press Ctrl + C to exit."<< std::endl;
+    cin >> posy;
+    grid.cellAcces(posx,posy).setState(1);
+  }
+}
+
 void printHelp() {
     std::cout << "This is a implementation of The Game of Life by the British mathematician John Horton Conway in 1970"<< std::endl;
     std::cout << "in the C++ programming language for academic purposes."<< std::endl;
     std::cout << "To run the program in your local machine check out the following steps:"<< std::endl;
     std::cout << "\t 1.- ./nfa_simulation "<< std::endl;
-    std::cout << "\t 2.- You must enter the grid size manually (NxM)"<< std::endl;
-    std::cout << "\t \t 2.1.- The program expects non negative numbers, otherwise will exit."<< std::endl;
+    std::cout << "\t 2.- You must enter the grid size manually (NxM) and the number of shifts"<< std::endl;
+    std::cout << "\t \t 2.1.- The program expects non negative numbers."<< std::endl;
     std::cout << "\t 3.- Enter in sequence the X and Y coordinates of the alive cells. "<< std::endl;
     std::cout << "\t 4.- Press any key to see an step by step evolution of the grid."<< std::endl;
-  }
-
-void gameParameters() {
-  int height,width;
-  std::cout << "\t Please enter the grid size manually (NxM), otherwise press 0 to exit."<< std::endl;
-
-  width = askWidth();
-  if (width > 0) {
-    height = askHeight();
-    if (height > 0) {
-      gameStart(width, height);
-    }
-  } else {
-    std::cout << "\t Exiting program."<< std::endl;
-  }
-
-}
-
-int askWidth() {
-    int aux;
-    std::cout << "\t Please enter the width of the grid (N), otherwise press 0 to exit."<< std::endl;
-    cin >> aux;
-    return aux;
-}
-
-int askHeight() {
-    int aux;
-    std::cout << "\t Please enter the height of the grid (M), otherwise press 0 to exit."<< std::endl;
-    cin >> aux;
-    return aux;
-}
-
-void gameStart(int width, int height){
-  Grid grid(width,height);
-  std::cout << "Enter in sequence the X and Y coordinates of the alive cells, then enter value -1 to begin "<< std::endl;
-  int xvalue, yvalue, turns;
-  std::cout << "Enter the maxim number of turns:"<< std::endl;
-  cin >> turns;
-  do{
-    xvalue = 0;
-    yvalue = 0;
-    std::cout << "\t Enter non negative number for X coordinate (default 0):"<< std::endl;
-    cin >> xvalue;
-    std::cout << "\t Enter non negative number for Y coordinate (default 0):"<< std::endl;
-    cin >> yvalue;
-    grid.cellAcces(xvalue,yvalue).setState(1);
-  }while((xvalue >= 0) || (yvalue >= 0));
-
-  do {
-    grid.nextGeneration();
-  }while (grid.getTurn() < turns);
-
 }
