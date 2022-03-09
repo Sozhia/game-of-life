@@ -14,7 +14,7 @@ class Grid{
   void nextGeneration();
   Cell& cellAcces(int, int);
   void browseNeighbors();
-  void quarterStates();
+  void updateStates();
   void printGrid();
 
  private:

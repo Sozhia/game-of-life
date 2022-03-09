@@ -15,13 +15,15 @@ class Cell{
    void setState(State);
    void setPosx(int);
    void setPosY(int);
+   void setAliveNeighbors(int);
    void updateState();
-   void neighbors(const Grid&);
+   int neighbors(const Grid&);
+   int getNeighbors();
    friend ostream& operator<<(ostream&, const Cell&);
    ~Cell();
 
  private:
-  int posx_, posy_, neighbors_;
+  int posx_, posy_, alive_neighbors_;
   State state_;
 };
 

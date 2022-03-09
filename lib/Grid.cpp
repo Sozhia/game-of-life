@@ -22,20 +22,21 @@ Grid::Grid(int width, int height) {
 const Cell& Grid::getCell(int posx, int posy) const { return board_[posx][posy]; }
 
 void Grid::nextGeneration() {
-  printGrid();
   browseNeighbors();
-  quarterStates();
+  printGrid();
+  updateStates();
 }
 
 void Grid::browseNeighbors() {
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
-      cellAcces(i,j).neighbors(*this);
+      int neighbors = cellAcces(i,j).neighbors(*this);
+      cellAcces(i,j).setAliveNeighbors(neighbors);
     }
   }
 }
 
-void Grid::quarterStates(){
+void Grid::updateStates(){
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
       cellAcces(i,j).updateState();
@@ -44,9 +45,10 @@ void Grid::quarterStates(){
 }
 
 void Grid::printGrid(){
+  cout << endl;
   for (int i = 0; i < board_.size(); i++) {
     for (int j = 0; j < board_[i].size(); j++){
-      cout << getCell(i,j); 
+      cout << getCell(i,j);
     }
     cout << endl;
   }
