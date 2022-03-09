@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 
 void printHelp();
 void gameParameters();
@@ -59,13 +60,12 @@ int askShifts() {
 }
 
 void gameStart(int rows, int columns, int shifts) {
-  Grid grid(columns,rows);
-  askAliveCells(grid);
-
+  Grid board(columns,rows);
+  askAliveCells(board);
+  std::cout << "\t Press Enter key to step forward . . . "<< std::endl;
   for (unsigned int counter = 0; counter < shifts; counter ++) {
     std::cout << "Shift: " << counter << std::endl;
-    grid.nextGeneration();
-    std::cout << "\t Press Enter key to continue . . . "<< std::endl;
+    board.nextGeneration();
     getchar();
   }
   
