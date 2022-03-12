@@ -5,17 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cpp.exe - Compilar y depurar el archivo activo",
+      "name": "(gdb) Iniciar",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "Escriba el nombre del programa; por ejemplo, ${workspaceFolder}/a.out.",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
-      "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
       "setupCommands": [
         {
           "description": "Habilitar la impresión con sangría para gdb",
@@ -27,8 +26,7 @@
           "text": "-gdb-set disassembly-flavor intel",
           "ignoreFailures": true
         }
-      ],
-      "preLaunchTask": "C/C++: cpp.exe compilar archivo activo"
+      ]
     }
   ]
 }
