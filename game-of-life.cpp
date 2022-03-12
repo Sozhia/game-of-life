@@ -8,7 +8,7 @@
 void printHelp();
 void gameParameters();
 void gameStart(int rows, int columns, int shifts);
-
+void printGame(Grid &board, int counter);
 int askRows();
 int askColumns();
 int askShifts();
@@ -60,12 +60,10 @@ int askShifts() {
 }
 
 void gameStart(int rows, int columns, int shifts) {
-  Grid board(columns,rows);
+  Grid board(columns,rows, shifts);
   askAliveCells(board);
-  std::cout << "\t Press Enter key to step forward . . . "<< std::endl;
-  for (unsigned int counter = 0; counter < shifts; counter ++) {
-    std::cout << "Shift: " << counter << std::endl;
-    board.nextGeneration();
+  for (unsigned int counter = 0; counter < board.getShifts(); counter ++) {
+    printGame(board, counter);
     getchar();
   }
   
@@ -81,7 +79,7 @@ void askAliveCells(Grid& grid) {
     cin >> posx;
     std::cout << "\t Please enter the Y coordinate of alive cell, otherwise press Ctrl + C to exit."<< std::endl;
     cin >> posy;
-    grid.cellAcces(posx,posy).setState(1);
+    grid.cellAcces(posx+1,posy+1).setState(1);
   }
 }
 
@@ -94,4 +92,13 @@ void printHelp() {
     std::cout << "\t \t 2.1.- The program expects non negative numbers."<< std::endl;
     std::cout << "\t 3.- Enter in sequence the X and Y coordinates of the alive cells. "<< std::endl;
     std::cout << "\t 4.- Press any key to see an step by step evolution of the grid."<< std::endl;
+}
+
+void printGame(Grid &board, int counter) {
+  std::cout << "Shift: " << counter << std::endl;
+  board.printGrid();
+  std::cout << "Alive cells: " << board.getAliveCells() << std::endl;
+  std::cout << "Dead cells: " << board.getDeadCells() << std::endl;
+  board.nextGeneration();
+  std::cout << "\t Press Enter key to step forward . . . "<< std::endl;
 }

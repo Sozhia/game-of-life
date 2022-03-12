@@ -6,7 +6,7 @@
 
 Grid::Grid() {}
 
-Grid::Grid(int width, int height) {
+Grid::Grid(int width, int height, int shifts) {
   board_.resize(width+2);
   for (int i = 0; i < board_.size(); i++){
     board_[i].resize(height+2);
@@ -17,13 +17,11 @@ Grid::Grid(int width, int height) {
       cellAcces(i,j).setPosY(j);
     }
   }
+  setShifts(shifts);
 }
-
-const Cell& Grid::getCell(int posx, int posy) const { return board_[posx][posy]; }
 
 void Grid::nextGeneration() {
   browseNeighbors();
-  printGrid();
   updateStates();
 }
 
@@ -44,6 +42,23 @@ void Grid::updateStates(){
   }
 }
 
+int Grid::getAliveCells(){
+  int counter = 0;
+
+  for (int i = 1; i < board_.size()-1; i++) {
+    for (int j = 1; j < board_[i].size()-1; j++){
+      if(getCell(i,j).getState() == 1){
+        counter++;
+      }
+    }
+  }
+  return counter;
+}
+
+int Grid::getDeadCells(){
+  return ((board_.size()-2) * (board_[0].size()-2))  - getAliveCells();
+}
+
 void Grid::printGrid(){
   cout << endl;
   for (int i = 0; i < board_.size(); i++) {
@@ -53,6 +68,12 @@ void Grid::printGrid(){
     cout << endl;
   }
 }
+
+const Cell& Grid::getCell(int posx, int posy) const { return board_[posx][posy]; }
+
+int Grid::getShifts() {return shifts_; }
+
+void Grid::setShifts(int value){shifts_ = value;}
 
 Cell& Grid::cellAcces(int i, int j) { return board_[i][j]; }
 
