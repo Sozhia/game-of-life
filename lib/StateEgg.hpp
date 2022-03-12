@@ -1,8 +1,10 @@
 #ifndef _STATEEGGHPP_
 #define _STATEEGGHPP_
 
-class StateEgg{
+#include "IState.hpp"
 
+class StateEgg : public State{
+ public
 };
 
 #endif
