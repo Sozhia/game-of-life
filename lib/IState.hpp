@@ -1,12 +1,12 @@
 #ifndef _STATEHPP_
 #define _STATEHPP_
 
-#include "Grid.hpp"
+#include <vector>
+#include <iostream>
 
-class State{
+class IState{
  public:
-  virtual int neighbors(const Grid&, int, int)=0;
-  virtual State* nextState()=0;
+  virtual IState* nextState(std::vector<IState>) = 0;
   virtual char getState() const =0;
 };
 
