@@ -1,16 +1,13 @@
 #ifndef _STATEEGGHPP_
 #define _STATEEGGHPP_
 
-#include <iostream>
 #include "IState.hpp"
 
-class StateEgg : public State{
+class StateEgg : public IState{
+
  public:
-  StateEgg();
-  int neighbors(const Grid&, int, int);
-  State* nextState();
-  char getState() const;
-  friend ostream& operator<<(ostream&, const State&);
+  IState* nextState(std::vector<IState>);
+  char getState();
 };
 
 #endif
