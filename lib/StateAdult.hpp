@@ -7,7 +7,7 @@ class StateAdult : public IState{
 
  public:
   IState* nextState(std::vector<IState&>);
-  char getState();
+  const char getState() const;
 
  private:
   int countStates(char, std::vector<IState&>);

@@ -7,7 +7,7 @@
 class IState{
  public:
   virtual IState* nextState(std::vector<IState&>) = 0;
-  virtual char getState() const =0;
+  virtual const char getState() const =0;
 
  private:
   virtual int countStates(char, std::vector<IState&>) = 0;
