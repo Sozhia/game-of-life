@@ -34,6 +34,6 @@ IState* StateAdult::findState(char letter, std::vector<IState&> states_collectio
 
 }
 
-char StateAdult::getState() {return 'A';}
+const char StateAdult::getState() const {return 'A';}
 
 #endif

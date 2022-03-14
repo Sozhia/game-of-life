@@ -35,6 +35,6 @@ IState* StateEgg::findState(char letter, std::vector<IState&> states_collection)
 
 }
 
-char StateEgg::getState() {return 'E';}
+const char StateEgg::getState() const {return 'E';}
 
 #endif

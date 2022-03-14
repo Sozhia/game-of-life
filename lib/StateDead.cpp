@@ -34,6 +34,6 @@ IState* StateDead::findState(char letter, std::vector<IState&> states_collection
 
 }
 
-char StateDead::getState() {return 'D';}
+const char StateDead::getState() const {return 'D';}
 
 #endif

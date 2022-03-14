@@ -43,6 +43,6 @@ IState* StateLarva::findState(char letter, std::vector<IState&> states_collectio
 
 }
 
-char StateLarva::getState() {return 'L';}
+char StateLarva::getState() const {return 'L';}
 
 #endif
