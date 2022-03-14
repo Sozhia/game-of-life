@@ -16,10 +16,9 @@ class Grid{
   void browseNeighbors();
   void updateStates();
   void printGrid();
-  int getShifts();
+
+  const int getShifts() const;
   void setShifts(int);
-  int getAliveCells();
-  int getDeadCells();
 
  private:
   std::vector<std::vector<Cell>> board_;

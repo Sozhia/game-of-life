@@ -9,9 +9,9 @@ class Grid;
 
 class Cell{
  public:
-   Cell();
+   Cell(IState*);
 
-   void updateState();
+   void updateState(const Grid& grid);
    std::vector<IState&> neighbors(const Grid&) const;
 
    void setPosx(int);
