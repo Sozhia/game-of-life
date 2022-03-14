@@ -1,30 +1,32 @@
 #ifndef _CELLHPP_
 #define _CELLHPP_
 
-#include <iostream>
+#include "IState.hpp"
 
 using namespace std;
-typedef int State;
 
 class Grid;
 
 class Cell{
  public:
    Cell();
-   State getState() const;
-   void setState(State);
+
+   void updateState();
+   std::vector<IState&> neighbors(const Grid&) const;
+
    void setPosx(int);
    void setPosY(int);
-   void setAliveNeighbors(int);
-   void updateState();
-   int neighbors(const Grid&);
-   int getNeighbors();
-   friend ostream& operator<<(ostream&, const Cell&);
+   int getPosx() const;
+   int getPosY() const;
+
+   IState* getState() const;
    ~Cell();
 
+   friend ostream& operator<<(ostream&, const Cell&);
+
  private:
-  int posx_, posy_, alive_neighbors_;
-  State state_;
+  int posx_, posy_;
+  IState* state_;
 };
 
 #endif
