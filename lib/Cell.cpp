@@ -6,46 +6,36 @@
 
 using namespace std;
 
-Cell::Cell() { setState(0); setAliveNeighbors(0);}
+Cell::Cell(IState* state) { delete state_; state_ = state;  }
 
-void Cell::updateState() {
-  if (getState() == 0) {
-    (getNeighbors() == 3) ? setState(1) : setState(0);
-  } else {
-    if (getNeighbors() == 2 || getNeighbors() == 3) {
-      setState(1);
-    } else { 
-      setState(0);
-    }
-  }
+void Cell::updateState(const Grid& grid) {
+  getState()->nextState(neighbors(grid));
 }
 
-int Cell::neighbors(const Grid& grid) { 
+std::vector<IState&> Cell::neighbors(const Grid& grid) const{ 
+  std::vector<IState&> states_collection;
   int counter = 0;
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {
       if (!(i == 0 && j == 0)) {
-        if(grid.getCell(posx_ + i, posy_ + j).getState() == 1) {
-          counter ++;
-        } 
+        states_collection.push_back(grid.getCell(posx_ + i, posy_ + j).getState());
       }
     }
   }
-  setAliveNeighbors(counter);
-  return counter;
+
+  return states_collection;
 }
 
 void Cell::setPosx(int value) { posx_ = value; }
 void Cell::setPosY(int value) { posy_ = value; }
-int Cell::getNeighbors() { return alive_neighbors_; }
-void Cell::setAliveNeighbors(int value) { alive_neighbors_ = value; }
-State Cell::getState() const { return state_; }
-void Cell::setState(State state) { state_ = state; }
+int Cell::getPosx() const { return posx_; }
+int Cell::getPosY() const { return posy_; }
+IState* Cell::getState() const { return state_; }
 
 Cell::~Cell(){}
 
 ostream& operator<<(ostream& os,const Cell& cl){
-  (cl.getState() == 0)? os <<  " " : os << "X";
+  os << cl.getState()->getState();
   return os;
 }
 

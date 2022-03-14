@@ -11,10 +11,7 @@ Grid::Grid(int width, int height, int shifts) {
   for (int i = 0; i < board_.size(); i++){
     board_[i].resize(height+2);
     for (int j = 0; j < board_[i].size(); j++){
-      Cell cell;
-      board_[i][j] = cell;
-      cellAcces(i,j).setPosx(i);
-      cellAcces(i,j).setPosY(j);
+      //
     }
   }
   setShifts(shifts);
@@ -28,8 +25,7 @@ void Grid::nextGeneration() {
 void Grid::browseNeighbors() {
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
-      int neighbors = cellAcces(i,j).neighbors(*this);
-      cellAcces(i,j).setAliveNeighbors(neighbors);
+      //
     }
   }
 }
@@ -37,26 +33,9 @@ void Grid::browseNeighbors() {
 void Grid::updateStates(){
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
-      cellAcces(i,j).updateState();
+      cellAcces(i,j).updateState(*this);
     }
   }
-}
-
-int Grid::getAliveCells(){
-  int counter = 0;
-
-  for (int i = 1; i < board_.size()-1; i++) {
-    for (int j = 1; j < board_[i].size()-1; j++){
-      if(getCell(i,j).getState() == 1){
-        counter++;
-      }
-    }
-  }
-  return counter;
-}
-
-int Grid::getDeadCells(){
-  return ((board_.size()-2) * (board_[0].size()-2))  - getAliveCells();
 }
 
 void Grid::printGrid(){
