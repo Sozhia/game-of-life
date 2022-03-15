@@ -3,12 +3,12 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <assert.h>
 
 void printHelp();
 void gameParameters();
 void gameStart(int rows, int columns, int shifts);
 void printGame(Grid &board, int counter);
+State* transferStatus(char letter);
 int askRows();
 int askColumns();
 int askShifts();
@@ -71,15 +71,20 @@ void gameStart(int rows, int columns, int shifts) {
 
 void askAliveCells(Grid& grid) {
   int aux;
-  std::cout << "\t Please enter the number of alive cells, otherwise press Ctrl + C to exit."<< std::endl;
+  std::cout << "\t Please enter the number of cells, you want to modify."<<std::endl;
+  std::cout << "Otherwise press Ctrl + C to exit."<< std::endl;
   cin >> aux;
   for (int i = 0; i < aux; i++) {
     int posx, posy;
+    char status;
     std::cout << "\t Please enter the X coordinate of alive cell, otherwise press Ctrl + C to exit."<< std::endl;
     cin >> posx;
     std::cout << "\t Please enter the Y coordinate of alive cell, otherwise press Ctrl + C to exit."<< std::endl;
     cin >> posy;
-    grid.cellAcces(posx+1,posy+1).setState(1);
+    std::cout << "\t Please enter one of the followin letters in brackets "<< std::endl;
+    std::cout << "\t (A)dults ; (E)ggs ; (L)arvas ; (P)upas"<< std::endl;
+    cin >> status;
+    grid.cellAcces(posx+1,posy+1).setState(transferStatus(status));
   }
 }
 
@@ -90,15 +95,47 @@ void printHelp() {
     std::cout << "\t 1.- ./nfa_simulation "<< std::endl;
     std::cout << "\t 2.- You must enter the grid size manually (NxM) and the number of shifts"<< std::endl;
     std::cout << "\t \t 2.1.- The program expects non negative numbers."<< std::endl;
-    std::cout << "\t 3.- Enter in sequence the X and Y coordinates of the alive cells. "<< std::endl;
+    std::cout << "\t 3.- Enter in sequence the X and Y coordinates of the cells you want to modify state value. "<< std::endl;
     std::cout << "\t 4.- Press any key to see an step by step evolution of the grid."<< std::endl;
 }
 
 void printGame(Grid &board, int counter) {
   std::cout << "Shift: " << counter << std::endl;
   board.printGrid();
-  std::cout << "Alive cells: " << board.getAliveCells() << std::endl;
-  std::cout << "Dead cells: " << board.getDeadCells() << std::endl;
   board.nextGeneration();
   std::cout << "\t Press Enter key to step forward . . . "<< std::endl;
+}
+
+State* transferStatus(char letter) {
+  switch(letter){
+    case 'A':
+      StateAdult *state_adult;
+      return state_adult;
+      break;
+     
+    case 'D':
+      StateDead *state_dead;
+      return state_dead;
+      break;
+
+    case 'E':
+      StateEgg *state_egg;
+      return state_egg;
+      break;
+
+    case 'L':
+      StateLarva *state_larva;
+      return state_larva;
+      break;
+
+    case 'P':
+      StatePupa *state_pupa;
+      return state_pupa;
+      break;
+
+    default:
+      StateDead *state_dead_def;
+      return state_dead_def;
+      break;
+  }
 }
