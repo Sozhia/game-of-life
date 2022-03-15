@@ -1,17 +1,31 @@
 #ifndef _STATEEGGHPP_
 #define _STATEEGGHPP_
 
-#include "IState.hpp"
+#include "State.hpp"
+#include "StateDead.hpp"
+#include "StateAdult.hpp"
+#include "StateLarva.hpp"
 
-class StateEgg : public IState{
+class StateEgg : public State{
 
  public:
-  IState* nextState(std::vector<IState&>);
+  StateEgg(){}
+  ~StateEgg(){}
+  
+  void neighbors(const Grid&, int, int);
+  State* nextState();
   const char getState() const;
 
+  int getLarvasAmount() const;
+  void setLarvasAmount(int);
+
+  int getEggsAmount() const;
+  void setEggsAmount(int);
+
  private:
-  int countStates(char, std::vector<IState&>);
-  IState* findState(char, std::vector<IState&>);
+  int n_states_larva_;
+  int n_states_egg_;
+
 };
 
 #endif

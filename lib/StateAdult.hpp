@@ -1,17 +1,23 @@
 #ifndef _STATEADULTHPP_
 #define _STATEADULTHPP_
 
-#include "IState.hpp"
+#include "State.hpp"
+#include "StateDead.hpp"
 
-class StateAdult : public IState{
+class StateAdult : public State{
 
  public:
-  IState* nextState(std::vector<IState&>);
+  StateAdult(){}
+  ~StateAdult(){}
+  
+  void neighbors(const Grid&, int, int);
+  State* nextState();
   const char getState() const;
 
+  int getAdultsAmount() const;
+  void setAdultsAmount(int);
  private:
-  int countStates(char, std::vector<IState&>);
-  IState* findState(char, std::vector<IState&>);
+  int n_states_adult_;
 };
 
 #endif

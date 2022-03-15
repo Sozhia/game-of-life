@@ -1,17 +1,41 @@
 #ifndef _STATEPUPAHPP_
 #define _STATEPUPAHPP_
 
-#include "IState.hpp"
+#include "State.hpp"
+#include "StateDead.hpp"
+#include "StateLarva.hpp"
+#include "StateAdult.hpp"
+#include "StateEgg.hpp"
+#include "StatePupa.hpp"
 
-class StateLarva : public IState{
+class StatePupa : public State{
 
  public:
-  IState* nextState(std::vector<IState&>);
+  StatePupa(){}
+  ~StatePupa(){}
+
+  void neighbors(const Grid&, int, int);
+  State* nextState();
   const char getState() const;
 
+  int getLarvasAmount() const;
+  void setLarvasAmount(int);
+
+  int getEggsAmount() const;
+  void setEggsAmount(int);
+
+  int getDeadsAmount() const;
+  void setDeadsAmount(int);
+
+  int getAdultsAmount() const;
+  void setAdultsAmount(int);
+
+  int getPupasAmount() const;
+  void setPupasAmount(int);
+
  private:
-  int countStates(char, std::vector<IState&>);
-  IState* findState(char, std::vector<IState&>);
+  int n_states_larva_, n_states_pupa_, n_states_dead_, n_states_egg_, n_states_adult_;
+
 };
 
 #endif
