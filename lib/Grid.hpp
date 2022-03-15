@@ -17,7 +17,7 @@ class Grid{
   void updateStates();
   void printGrid();
 
-  const int getShifts() const;
+  int getShifts() const;
   void setShifts(int);
 
  private:

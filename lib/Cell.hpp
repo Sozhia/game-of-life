@@ -1,7 +1,8 @@
 #ifndef _CELLHPP_
 #define _CELLHPP_
 
-#include "IState.hpp"
+#include "State.hpp"
+#include "StateDead.hpp"
 
 using namespace std;
 
@@ -9,24 +10,28 @@ class Grid;
 
 class Cell{
  public:
-   Cell(IState*);
+   Cell();
+   Cell(State*);
 
-   void updateState(const Grid& grid);
-   std::vector<IState&> neighbors(const Grid&) const;
+   void updateState();
+
+   void setState(State*);
+   char getStateValue() const;
+   State* getState() const;
 
    void setPosx(int);
    void setPosY(int);
    int getPosx() const;
    int getPosY() const;
 
-   IState* getState() const;
    ~Cell();
 
    friend ostream& operator<<(ostream&, const Cell&);
 
  private:
   int posx_, posy_;
-  IState* state_;
+  State* state_;
+  
 };
 
 #endif
