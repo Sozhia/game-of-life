@@ -11,7 +11,10 @@ Grid::Grid(int width, int height, int shifts) {
   for (int i = 0; i < board_.size(); i++){
     board_[i].resize(height+2);
     for (int j = 0; j < board_[i].size(); j++){
-      //
+      Cell cell;
+      board_[i][j] = cell;
+      cellAcces(i,j).setPosx(i);
+      cellAcces(i,j).setPosY(j);
     }
   }
   setShifts(shifts);
@@ -25,7 +28,7 @@ void Grid::nextGeneration() {
 void Grid::browseNeighbors() {
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
-      //
+      getCell(i,j).getState()->neighbors(*this, i, j);
     }
   }
 }
@@ -33,7 +36,7 @@ void Grid::browseNeighbors() {
 void Grid::updateStates(){
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
-      cellAcces(i,j).updateState(*this);
+      cellAcces(i,j).updateState();
     }
   }
 }
@@ -50,7 +53,7 @@ void Grid::printGrid(){
 
 const Cell& Grid::getCell(int posx, int posy) const { return board_[posx][posy]; }
 
-int Grid::getShifts() {return shifts_; }
+int Grid::getShifts() const {return shifts_; }
 
 void Grid::setShifts(int value){shifts_ = value;}
 
