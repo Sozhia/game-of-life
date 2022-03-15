@@ -3,46 +3,54 @@
 
 #include "StateLarva.hpp"
 
-IState* StateLarva::nextState(std::vector<IState&> states_collection) {
-  int num_larva_states = 0;
-  int num_pupa_states = 0;
-  int num_egg_states = 0;
-  int num_adult_states = 0;
-  int sum_adult_pupa_egg = 0;
+void StateLarva::neighbors(const Grid& grid, int posx, int posy){
+  int eggs_counter = 0;
+  int larvas_counter = 0;
+  int pupas_counter = 0;
+  int adults_counter = 0;
 
-  num_larva_states = countStates('L', states_collection);
-  num_pupa_states = countStates('P', states_collection);
-  num_egg_states = countStates('E', states_collection);
-  num_adult_states = countStates('A', states_collection);
+  for (int i = -1; i < 2; i++) {
+    for (int j = -1; j < 2; j++) {
+      if (!(i == 0 && j == 0)) {
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'E')? eggs_counter++ : 0;
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'L')? larvas_counter++ : 0;
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'P')? pupas_counter++ : 0;
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'A')? adults_counter++ : 0;
+      }
+    }
+  }
+  setEggsAmount(eggs_counter);
+  setLarvasAmount(larvas_counter);
+  setPupasAmount(pupas_counter);
+  setAdultsAmount(adults_counter);
+}
 
-  sum_adult_pupa_egg = num_adult_states + num_pupa_states + num_egg_states;
+State* StateLarva::nextState() {
 
-  if (num_larva_states > sum_adult_pupa_egg){
-    return findState('D', states_collection);
-  } else{
-    return findState('P', states_collection);
+ int sum_adult_pupa_egg = getAdultsAmount() + getPupasAmount() + getEggsAmount();
+
+  if (getLarvasAmount() > sum_adult_pupa_egg){
+    StateDead *state_dead;
+    return state_dead;
+  } else {
+    StatePupa *state_pupa;
+    return state_pupa;
   } 
 
 }
 
-int StateLarva::countStates(char letter, std::vector<IState&> states_collection) {
-  int counter = 0;
-  for (int i = 0; i < states_collection.size(); i++)
-    (states_collection[i].getState() == letter)? counter++ : 0;
-  
-  return counter;
-}
+int StateLarva::getLarvasAmount() const { return n_states_larva_; }
+void StateLarva::setLarvasAmount(int value) { n_states_larva_ = value; }
 
-IState* StateLarva::findState(char letter, std::vector<IState&> states_collection){
-  for (int i = 0; i < states_collection.size(); i++){
-    if (states_collection[i].getState() == letter){
-      return &states_collection[i];
-      break;
-    }
-  }
+int StateLarva::getEggsAmount() const { return n_states_egg_; }
+void StateLarva::setEggsAmount(int value) {n_states_egg_ = value; }
 
-}
+int StateLarva::getPupasAmount() const { return n_states_pupa_; }
+void StateLarva::setPupasAmount(int value) { n_states_pupa_ = value; }
 
-char StateLarva::getState() const {return 'L';}
+int StateLarva::getAdultsAmount() const { return n_states_adult_; }
+void StateLarva::setAdultsAmount(int value) { n_states_adult_ = value; }
+
+const char StateLarva::getState() const {return 'L';}
 
 #endif

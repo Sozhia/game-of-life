@@ -3,38 +3,37 @@
 
 #include "StateEgg.hpp"
 
-IState* StateEgg::nextState(std::vector<IState&> states_collection) {
-  int num_larva_states = 0;
-  int num_egg_states = 0;
-  num_larva_states = countStates('L', states_collection);
-  num_egg_states = countStates('E', states_collection);
-
-  if (num_larva_states > num_egg_states){
-    return findState('D', states_collection);
-  } else{
-    return findState('L', states_collection);
-  } 
-
-}
-
-int StateEgg::countStates(char letter, std::vector<IState&> states_collection) {
-  int counter = 0;
-  for (int i = 0; i < states_collection.size(); i++)
-    (states_collection[i].getState() == letter)? counter++ : 0;
-  
-  return counter;
-}
-
-IState* StateEgg::findState(char letter, std::vector<IState&> states_collection){
-  for (int i = 0; i < states_collection.size(); i++){
-    if (states_collection[i].getState() == letter){
-      return &states_collection[i];
-      break;
+void StateEgg::neighbors(const Grid& grid, int posx, int posy){
+  int eggs_counter = 0;
+  int larvas_counter = 0;
+  for (int i = -1; i < 2; i++) {
+    for (int j = -1; j < 2; j++) {
+      if (!(i == 0 && j == 0)) {
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'E')? eggs_counter++ : 0;
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'L')? larvas_counter++ : 0;
+      }
     }
   }
+  setEggsAmount(eggs_counter);
+  setLarvasAmount(larvas_counter);
+}
 
+State* StateEgg::nextState() {
+  if (getLarvasAmount() > getEggsAmount()){
+    StateDead *state_dead;
+    return state_dead;
+  } else {
+    StateLarva *state_larva;
+    return state_larva;
+  }
 }
 
 const char StateEgg::getState() const {return 'E';}
+
+int StateEgg::getLarvasAmount() const {return n_states_larva_;}
+void StateEgg::setLarvasAmount(int value) { n_states_larva_ = value; }
+
+int StateEgg::getEggsAmount() const {return n_states_egg_;}
+void StateEgg::setEggsAmount(int value) { n_states_egg_ = value; }
 
 #endif

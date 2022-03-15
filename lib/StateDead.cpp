@@ -3,37 +3,31 @@
 
 #include "StateDead.hpp"
 
-IState* StateDead::nextState(std::vector<IState&> states_collection) {
-  int num_adult_states = 0;
-
-  num_adult_states = countStates('A', states_collection);
-
-  if (num_adult_states >= 2){
-    return findState('E', states_collection);
-  } else{
-    return findState('D', states_collection);
-  } 
-
-}
-
-int StateDead::countStates(char letter, std::vector<IState&> states_collection) {
+void StateDead::neighbors(const Grid& grid, int posx, int posy){
   int counter = 0;
-  for (int i = 0; i < states_collection.size(); i++)
-    (states_collection[i].getState() == letter)? counter++ : 0;
-  
-  return counter;
-}
-
-IState* StateDead::findState(char letter, std::vector<IState&> states_collection){
-  for (int i = 0; i < states_collection.size(); i++){
-    if (states_collection[i].getState() == letter){
-      return &states_collection[i];
-      break;
+  for (int i = -1; i < 2; i++) {
+    for (int j = -1; j < 2; j++) {
+      if (!(i == 0 && j == 0)) {
+        (grid.getCell(posx + i, posy + j).getState()->getState() == 'A')? counter++ : 0;
+      }
     }
   }
+  setAdultsAmount(counter);
+}
 
+State* StateDead::nextState() {
+  if (getAdultsAmount() >= 2){
+    StateEgg *state_egg;
+    return state_egg;
+  } else {
+    StateDead *state_dead;
+    return state_dead;
+  }
 }
 
 const char StateDead::getState() const {return 'D';}
 
+int StateDead::getAdultsAmount() const { return n_states_adult_; }
+
+void StateDead::setAdultsAmount(int value) { n_states_adult_ = value; }
 #endif
