@@ -1,6 +1,11 @@
 #include "./lib/Grid.hpp"
 #include "./lib/Cell.hpp"
-
+#include "./lib/State.hpp"
+#include "./lib/StateAdult.hpp"
+#include "./lib/StateEgg.hpp"
+#include "./lib/StatePupa.hpp"
+#include "./lib/StateLarva.hpp"
+#include "./lib/StateDead.hpp"
 #include <string.h>
 #include <stdio.h>
 
@@ -107,35 +112,30 @@ void printGame(Grid &board, int counter) {
 }
 
 State* transferStatus(char letter) {
+  State* state;
   switch(letter){
     case 'A':
-      StateAdult *state_adult;
-      return state_adult;
+      return state = new StateAdult;
       break;
      
     case 'D':
-      StateDead *state_dead;
-      return state_dead;
+      return state = new StateDead;
       break;
 
     case 'E':
-      StateEgg *state_egg;
-      return state_egg;
+      return state = new StateEgg;
       break;
 
     case 'L':
-      StateLarva *state_larva;
-      return state_larva;
+      return state = new StateLarva;
       break;
 
     case 'P':
-      StatePupa *state_pupa;
-      return state_pupa;
+      return state = new StatePupa;
       break;
 
     default:
-      StateDead *state_dead_def;
-      return state_dead_def;
+      return state = new StateDead;
       break;
   }
 }

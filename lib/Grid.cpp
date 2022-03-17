@@ -1,7 +1,6 @@
 #ifndef _GRIDCPP_
 #define _GRIDCPP_
 
-#include "Cell.hpp"
 #include "Grid.hpp"
 
 Grid::Grid() {}
@@ -25,7 +24,7 @@ void Grid::nextGeneration() {
   updateStates();
 }
 
-void Grid::browseNeighbors() {
+void Grid::browseNeighbors() { // Intentar modificar esto (Responsabilidad unica)
   for (int i = 1; i < board_.size()-1; i++) {
     for (int j = 1; j < board_[i].size()-1; j++){
       getCell(i,j).getState()->neighbors(*this, i, j);
@@ -45,7 +44,7 @@ void Grid::printGrid(){
   cout << endl;
   for (int i = 0; i < board_.size(); i++) {
     for (int j = 0; j < board_[i].size(); j++){
-      cout << getCell(i,j);
+      (i == 0 || j == 0)? cout << " " : cout << getCell(i,j).getStateValue();
     }
     cout << endl;
   }

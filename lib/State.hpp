@@ -1,12 +1,11 @@
-#ifndef _ISTATEHPP_
-#define _ISTATEHPP_
+#ifndef _STATEHPP_
+#define _STATEHPP_
 
 #include <vector>
 #include <iostream>
-#include "Grid.hpp"
-#include "Cell.hpp"
+class Grid;
 
-class State{
+class State {
  public:
   virtual void neighbors(const Grid&, int, int) = 0;
   virtual State* nextState() = 0;

@@ -1,15 +1,23 @@
 CC=g++
 CFLAGS=-I.
-DEPS = ../lib/State.hpp \
+DEPS = ../lib/Grid.hpp \
+			 ../lib/State.hpp \
 			 ../lib/Cell.hpp \
-			 ../lib/Grid.hpp \
 			 ../lib/StateDead.hpp \
 			 ../lib/StateAdult.hpp \
 			 ../lib/StateEgg.hpp \
 			 ../lib/StateLarva.hpp \
 			 ../lib/StatePupa.hpp \
+			 ../game-of-life.cpp \
 
-OBJ = $(DEPS:.hpp=.o)
+OBJ =  ../lib/Cell.o \
+			 ../lib/Grid.o \
+			 ../lib/StateDead.o \
+			 ../lib/StateAdult.o \
+			 ../lib/StateEgg.o \
+			 ../lib/StateLarva.o \
+			 ../lib/StatePupa.o \
+			 ../game-of-life.o	\
 
 ./%.o: %.cpp $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)

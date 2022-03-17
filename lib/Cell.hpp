@@ -2,16 +2,16 @@
 #define _CELLHPP_
 
 #include "State.hpp"
-#include "StateDead.hpp"
+#include "Grid.hpp"
 
 using namespace std;
 
 class Grid;
+class State;
 
 class Cell{
  public:
    Cell();
-   Cell(State*);
 
    void updateState();
 

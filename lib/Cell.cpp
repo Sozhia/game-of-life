@@ -2,35 +2,22 @@
 #define _CELLCPP_
 
 #include "Cell.hpp"
-#include "Grid.hpp"
+#include "StateDead.hpp"
 
 using namespace std;
 
-Cell::Cell() { 
-  StateDead *state;
-  state_ = state;
-}
+Cell::Cell() { state_ = new StateDead; }
 
-Cell::Cell(State* state) { delete state_; state_ = state;  }
-
-void Cell::updateState(){
-  State* aux = state_->nextState();
-  delete state_;
-  state_ = aux;
-  delete aux;
-}
-
-void Cell::setState(State* state){ delete state_; state_ = state; }
+void Cell::updateState(){ state_ = getState()->nextState(); }
 
 char Cell::getStateValue() const{ return state_->getState(); }
+void Cell::setState(State* state){ state_ = state; }
 State* Cell::getState() const{ return state_; }
 
 void Cell::setPosx(int value) { posx_ = value; }
-
 void Cell::setPosY(int value) { posy_ = value; }
 
 int Cell::getPosx() const { return posx_; }
-
 int Cell::getPosY() const { return posy_; }
 
 Cell::~Cell(){}

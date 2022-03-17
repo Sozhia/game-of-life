@@ -2,61 +2,34 @@
 #define _STATEPUPACPP_
 
 #include "StatePupa.hpp"
+#include "StateDead.hpp"
+#include "StateAdult.hpp"
 
 void StatePupa::neighbors(const Grid& grid, int posx, int posy){
-  int eggs_counter = 0;
-  int larvas_counter = 0;
-  int pupas_counter = 0;
-  int adults_counter = 0;
-  int deads_counter = 0;
+  n_states_egg_= 0;
+  n_states_larva_ = 0;
+  n_states_pupa_ = 0;
+  n_states_adult_ = 0;
+  n_states_dead_ = 0;
 
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {
       if (!(i == 0 && j == 0)) {
-        (grid.getCell(posx + i, posy + j).getState()->getState() == 'E')? eggs_counter++ : 0;
-        (grid.getCell(posx + i, posy + j).getState()->getState() == 'L')? larvas_counter++ : 0;
-        (grid.getCell(posx + i, posy + j).getState()->getState() == 'P')? pupas_counter++ : 0;
-        (grid.getCell(posx + i, posy + j).getState()->getState() == 'A')? adults_counter++ : 0;
-        (grid.getCell(posx + i, posy + j).getState()->getState() == 'D')? deads_counter++ : 0;
-
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'E')? n_states_egg_++ : 0;
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'L')? n_states_larva_++ : 0;
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'P')? n_states_pupa_++ : 0;
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'A')? n_states_adult_++ : 0;
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'D')? n_states_dead_++ : 0;
       }
     }
   }
-  setEggsAmount(eggs_counter);
-  setLarvasAmount(larvas_counter);
-  setPupasAmount(pupas_counter);
-  setAdultsAmount(adults_counter);
-  setDeadsAmount(deads_counter);
 }
 
 State* StatePupa::nextState() {
-
- int sum_all = getAdultsAmount() + getPupasAmount() + getEggsAmount() + getDeadsAmount();
-
-  if (getLarvasAmount() > sum_all){
-    StateDead *state_dead;
-    return state_dead;
-  } else {
-    StateAdult *state_adult;
-    return state_adult;
-  } 
-
+  int sum_all = n_states_adult_ + n_states_pupa_ + n_states_egg_ + n_states_dead_;
+  State* state;
+  return (n_states_larva_ > sum_all)? state = new StateDead : state = new StateAdult;
 }
-
-int StatePupa::getLarvasAmount() const { return n_states_larva_; }
-void StatePupa::setLarvasAmount(int value) { n_states_larva_ = value; }
-
-int StatePupa::getEggsAmount() const { return n_states_egg_; }
-void StatePupa::setEggsAmount(int value) {n_states_egg_ = value; }
-
-int StatePupa::getPupasAmount() const { return n_states_pupa_; }
-void StatePupa::setPupasAmount(int value) { n_states_pupa_ = value; }
-
-int StatePupa::getAdultsAmount() const { return n_states_adult_; }
-void StatePupa::setAdultsAmount(int value) { n_states_adult_ = value; }
-
-int StatePupa::getDeadsAmount() const { return n_states_dead_; }
-void StatePupa::setDeadsAmount(int value) { n_states_dead_ = value; }
 
 const char StatePupa::getState() const {return 'P';}
 
