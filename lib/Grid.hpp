@@ -9,17 +9,10 @@ class Cell;
 
 class Grid{
  public:
-  Grid();
-  Grid(int, int, int);
-  const Cell& getCell(int, int) const;
+  virtual Cell& Grid::cellAcces(int, int) = 0;
+  virtual const Cell& Grid::getCell(int, int) const = 0;
   void nextGeneration();
-  Cell& cellAcces(int, int);
-  void browseNeighbors();
-  void updateStates();
-  void printGrid();
-
-  int getShifts() const;
-  void setShifts(int);
+  virtual Grid::~Grid() {}; 
 
  private:
   std::vector<std::vector<Cell>> board_;
