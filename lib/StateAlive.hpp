@@ -1,13 +1,13 @@
-#ifndef _STATEDEADHPP_
-#define _STATEDEADHPP_
+#ifndef _STATEALIVEHPP_
+#define _STATEALIVEHPP_
 
 #include "State.hpp"
 #include "Grid.hpp"
 
-class StateDead : public State {
+class StateAlive : public State {
 
  public:
-   
+  
   void neighbors(const Grid&, int, int);
   State* nextState();
   const char getState() const;
