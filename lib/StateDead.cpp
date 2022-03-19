@@ -2,15 +2,14 @@
 #define _STATEDEADCPP_
 
 #include "StateDead.hpp"
-#include "StateEgg.hpp"
-#include "StateDead.hpp"
+#include "StateAlive.hpp"
 
 void StateDead::neighbors(const Grid& grid, int posx, int posy){
-  n_states_adult_ = 0;
+  n_states_alive_ = 0;
   for (int i = -1; i < 2; i++) {
     for (int j = -1; j < 2; j++) {
       if (!(i == 0 && j == 0)) {
-        (grid.getCell(posx + i, posy + j).getStateValue() == 'A')? n_states_adult_++ : 0;
+        (grid.getCell(posx + i, posy + j).getStateValue() == 'X')? n_states_alive_++ : 0;
       }
     }
   }
@@ -18,9 +17,9 @@ void StateDead::neighbors(const Grid& grid, int posx, int posy){
 
 State* StateDead::nextState() {
   State* state;
-  return (n_states_adult_ >= 2)?state = new StateEgg : state = new StateDead ;
+  return (n_states_alive_ == 3)?state = new StateAlive : state = new StateDead ;
 }
 
-const char StateDead::getState() const {return 'D';}
+const char StateDead::getState() const {return ' ';}
 
 #endif
