@@ -4,19 +4,13 @@ DEPS = ../lib/Grid.hpp \
 			 ../lib/State.hpp \
 			 ../lib/Cell.hpp \
 			 ../lib/StateDead.hpp \
-			 ../lib/StateAdult.hpp \
-			 ../lib/StateEgg.hpp \
-			 ../lib/StateLarva.hpp \
-			 ../lib/StatePupa.hpp \
+			 ../lib/StateAlive.hpp \
 			 ../game-of-life.cpp \
 
 OBJ =  ../lib/Cell.o \
 			 ../lib/Grid.o \
 			 ../lib/StateDead.o \
-			 ../lib/StateAdult.o \
-			 ../lib/StateEgg.o \
-			 ../lib/StateLarva.o \
-			 ../lib/StatePupa.o \
+			 ../lib/StateAlive.o \
 			 ../game-of-life.o	\
 
 ./%.o: %.cpp $(DEPS)
