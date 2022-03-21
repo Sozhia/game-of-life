@@ -7,11 +7,11 @@
 class StateDead : public State {
 
  public:
-   
+  StateDead();
   void neighbors(const Grid&, int, int);
   State* nextState();
   const char getState() const;
-
+  ~StateDead();
  private:
   int n_states_alive_;
 };

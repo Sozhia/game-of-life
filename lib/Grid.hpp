@@ -1,22 +1,21 @@
 #ifndef _GRIDHPP_
 #define _GRIDHPP_
 
-#include <iostream>
-#include <vector> 
 #include "Cell.hpp"
 
 class Cell;
 
 class Grid{
  public:
-  virtual Cell& Grid::cellAcces(int, int) = 0;
-  virtual const Cell& Grid::getCell(int, int) const = 0;
-  void nextGeneration();
-  virtual Grid::~Grid() {}; 
-
- private:
-  std::vector<std::vector<Cell>> board_;
-  int shifts_;
+  virtual Cell& cellAcces(int, int) = 0;
+  virtual const Cell& getCell(int, int) const = 0;
+  virtual bool checkIfCellExist(int, int) const = 0;
+  virtual const int getShifts() const = 0;
+  virtual void nextGeneration() = 0;
+  virtual void browseNeighbors() = 0;
+  virtual void updateStates() = 0;
+  virtual void printGrid() = 0;
+  virtual ~Grid() {}; 
 };
 
 #endif

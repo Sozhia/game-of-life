@@ -3,6 +3,7 @@
 
 #include "State.hpp"
 #include "Grid.hpp"
+#include <iostream>
 
 using namespace std;
 
@@ -12,15 +13,14 @@ class State;
 class Cell{
  public:
    Cell();
+   Cell(int, int);
 
    void updateState();
 
-   void setState(State*);
    char getStateValue() const;
    State* getState() const;
+   void setState(State*);
 
-   void setPosx(int);
-   void setPosY(int);
    int getPosx() const;
    int getPosY() const;
 

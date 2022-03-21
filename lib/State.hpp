@@ -1,8 +1,6 @@
 #ifndef _STATEHPP_
 #define _STATEHPP_
 
-#include <vector>
-#include <iostream>
 class Grid;
 
 class State {
