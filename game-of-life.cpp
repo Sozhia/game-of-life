@@ -2,6 +2,7 @@
 #include "./lib/GridWithOpenBorder.hpp"
 #include "./lib/GridWithFrozenBorder.hpp"
 #include "./lib/GridWithPeriodicBorder.hpp"
+#include "./lib/GridWithNoBorders.hpp"
 #include "./lib/GridWithReflectiveBorder.hpp"
 #include "./lib/StateDead.hpp"
 #include "./lib/StateAlive.hpp"
@@ -67,7 +68,7 @@ int askShifts() {
 char askTypeOfGrid() {
   char aux;
   std::cout << "\t Please enter the type of Grid."<< std::endl;
-  std::cout << "\t (F)rozen ; (O)pen ; (P)eriodic ; (R)eflective " << std::endl;
+  std::cout << "\t (F)rozen ; (O)pen ; (P)eriodic ; (R)eflective : (I)nfinite " << std::endl;
   std::cout << "\t Otherwise press Ctrl + C to exit."<< std::endl;
   cin >> aux;
   return aux;
@@ -141,6 +142,10 @@ Grid* gridGenerator(char letter) {
 
     case 'R':
       grid = new  GridWithReflectiveBorder(rows, columns, shifts);
+      break;
+
+    case 'I':
+      grid = new  GridWithNoBorders(rows, columns, shifts);
       break;
 
     default:

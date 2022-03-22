@@ -2,6 +2,7 @@ CC=g++
 CFLAGS=-I.
 DEPS = ../lib/Grid.hpp \
 			 ../lib/GridWithFrozenBorder.hpp \
+			 ../lib/GridWithNoBorders.hpp \
 			 ../lib/GridWithOpenBorder.hpp \
 			 ../lib/GridWithPeriodicBorder.hpp \
 			 ../lib/GridWithReflectiveBorder.hpp \
@@ -13,6 +14,7 @@ DEPS = ../lib/Grid.hpp \
 
 OBJ =  ../lib/Cell.o \
 			 ../lib/GridWithFrozenBorder.o \
+			 ../lib/GridWithNoBorders.o \
 			 ../lib/GridWithOpenBorder.o \
 			 ../lib/GridWithPeriodicBorder.o \
 			 ../lib/GridWithReflectiveBorder.o \

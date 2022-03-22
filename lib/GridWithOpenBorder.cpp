@@ -19,7 +19,15 @@ GridWithOpenBorder::GridWithOpenBorder(int width, int height, int shifts){
 
 Cell& GridWithOpenBorder::cellAcces(int posx, int posy) { return board_[posx][posy]; }
 
-const Cell& GridWithOpenBorder::getCell(int posx, int posy) const { return board_[posx][posy]; }
+const Cell& GridWithOpenBorder::getCell(int posx, int posy) const {
+  if ((posx < 0) ||
+     (posy < 0) ||
+     (posx > board_.size()) ||
+     (posy > board_[0].size())) {
+       return Cell();
+  }
+  return board_[posx][posy]; 
+}
 
 const int GridWithOpenBorder::getShifts() const {return n_shifts_;}
 
@@ -48,7 +56,7 @@ void GridWithOpenBorder::printGrid(){
   cout << endl;
   for (int j = 0; j < board_.size(); j++) {
     for (int i = 0; j < board_[i].size(); i++){
-      cout << getCell(i,j).getStateValue();
+      cout <<"[" << getCell(i,j).getStateValue() << "]";
     }
     cout << endl;
   }

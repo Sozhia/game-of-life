@@ -4,7 +4,7 @@
 #include "Cell.hpp"
 #include "StateDead.hpp"
 
-Cell::Cell(){}
+Cell::Cell(){state_ = new StateDead();}
 
 Cell::Cell(int posx, int posy) { 
   state_ = new StateDead();
